@@ -22,7 +22,6 @@ var hitIG = function(request, response) {
 // Create a function to handle Twilio SMS / MMS webhook requests
 var webhook = function(request, response) {
 		console.log("i got a message from: " + request.body.From)
-        console.log(IGline)
 
 		//response.send("got")
     // Get the user's phone number
@@ -40,6 +39,7 @@ var webhook = function(request, response) {
             IGline.shift();
             IGline.push(msg);
         }
+        console.log(IGline)
         // Conditional logic to do different things based on the command from
         // the user
         if (msg.length > 0) {
