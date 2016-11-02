@@ -1,4 +1,3 @@
-
 // var lastMessage = "";
 var IGline = []; 
 
@@ -13,15 +12,21 @@ module.exports = function(app) {
 
 //----------INSTAGRAM CODE------------------
 var hitIG = function(request, response) {
-	// make request to instagram using lastmessage
-	response.send("hello")
+	// make get request to instagram using lastmessage
+    //for debugging purposes
+	// response.send("hello")
+    var next = IGline[0];
+    IGline.shift();
 	// send instagram back to wip in response
+    response.json({handle:next}); 
+        
 }
 //----------INSTAGRAM CODE------------------
 
 // Create a function to handle Twilio SMS / MMS webhook requests
 var webhook = function(request, response) {
-		console.log("i got a message from: " + request.body.From)
+
+	console.log("i got a message from: " + request.body.From)
 
 		//response.send("got")
     // Get the user's phone number
@@ -30,15 +35,9 @@ var webhook = function(request, response) {
         // get the text message command sent by the user
         var msg = request.body.Body || '';
         msg = msg.toLowerCase().trim();
-        // lastMessage = msg;
+        IGline.push(msg);
 
-        if (IGline.length < 4){
-            IGline.push(msg);
-
-        } else {
-            IGline.shift();
-            IGline.push(msg);
-        }
+       //debugging purposes 
         console.log(IGline)
         // Conditional logic to do different things based on the command from
         // the user
