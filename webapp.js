@@ -49,5 +49,11 @@ app.use(function(err, request, response, next) {
     response.sendFile(path.join(__dirname, 'public', '500.html'));
 });
 
+// INDEX.HTML
+app.use(function (request, response, next) {
+    // response.status(404);
+    response.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Export Express app
 module.exports = app;
