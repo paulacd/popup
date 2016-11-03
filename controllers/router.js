@@ -27,9 +27,12 @@ var hitIG = function(request, response) {
     //for debugging purposes
 	// response.send("hello")
     console.log('received request for handle');
+
+    console.log('IGline length is: ' + IGline.length);
     if (IGline > 0) {
 
         var next = IGline[0];
+        console.log('next is: ' + next);
         IGline.shift();
     	// send instagram back to wip in response
         response.json({ "handle" : next }); 
