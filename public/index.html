@@ -3,24 +3,38 @@
 		<script   src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script type="text/javascript">
 		// var id = "wipaweeeeee";
-		var url;
+		var url; 
 		var nextURL;
-		var id;
+		var id = "";
 		var allImage = [];
+		var imageCounter=0;
 
-		function getStuff(){
-			console.log('inside getstuff');
+		
+
+
+		function setID(){
+			//var id;
+			console.log('inside setID');
 			$.getJSON('/instagram', function(data){
-				console.log(data);
-				id = data;
+				console.log(typeof(data));
+				console.log(data.handle);
+
+				id = data.handle;
+				//return id;
+				//console.log(id)
 				url = "https://www.instagram.com/" + id + "/media/";
 
 				callMethod(url, drawImage);
+				//drawImage();
 			});
+			
 		}
 
 
 		function callMethod(url, successCallback) {
+
+			console.log('inside callMethod');
+
 			$.ajax({
 				url: url, 
 				success: successCallback,
@@ -30,44 +44,61 @@
 			}); 
 		}
 
-		// callMethod(url, drawImage);
+		//callMethod(url, setID, drawImage);
 
 	    function drawImage(result) {
+	    	if(result.items != null && result.items != undefined){
+		    	var lastURL = result.items.length - 1;
 
-	    	var lastURL = result.items.length - 1;
+		    	console.log('im drawimg image');
 
-	    	console.log('im drawimg image');
+					for( var i = 0; i < result.items.length; i++) {
+						var lowRes = result.items[i].images.low_resolution.url;
+			        	var imgDiv = document.createElement('img')
+			        	imgDiv.src = lowRes;
+			        	allImage.push(imgDiv);
 
-				for( var i = 0; i < result.items.length; i++) {
-					var lowRes = result.items[i].images.low_resolution.url;
-		        	var imgDiv = document.createElement('img')
-		        	imgDiv.src = lowRes;
-		        	allImage.push(imgDiv);
-
-		        	nextURL = "https://www.instagram.com/" + id + "/media/?max_id=" + result.items[lastURL].id
-				}
+			        	nextURL = "https://www.instagram.com/" + id + "/media/?max_id=" + result.items[lastURL].id
+					}
 
 					callMethod(nextURL, drawImage);
 
-	  		displayImage();
+		  		//displayImage();
+		  	}			
 	    }
 
-	    function displayImage() {
-	    	for(var i = 0; i < allImage.length; i++) {
-	    		allImage[i].style.position = "absolute";
-	        	allImage[i].style.top = 0;
-	        	allImage[i].className = "insta";
-	        	// allImage[i].style.width = 640;
-	        	// allImage[i].style.height = "auto";
-	    		document.getElementById('div1').appendChild(allImage[i]);
-	    	}
-	    }
+	    // function displayImage() {
+	    // 	for(var i = 0; i < allImage.length; i++) {
+	    // 		allImage[i].style.position = "absolute";
+	    //     	allImage[i].style.top = 0;
+	    //     	allImage[i].className = "insta";
+	    //     	// allImage[i].style.width = 640;
+	    //     	// allImage[i].style.height = "auto";
+	    // 		document.getElementById('div1').appendChild(allImage[i]);
+	    // 	}
+	    // }
+	    setInterval(function() {
+		  // animiate something
+		  if(allImage.length>imageCounter){
+		  	allImage[imageCounter].style.position = "absolute";
+        	allImage[imageCounter].style.top = 0;
+        	allImage[imageCounter].className = "insta";
+        	// allImage[i].style.width = 640;
+        	// allImage[i].style.height = "auto";
+    		document.getElementById('div1').appendChild(allImage[imageCounter]);
+
+		  	imageCounter++;
+		  }
+
+
+		}, 1000/60);
+		// setInterval();
 
 	
 		</script>	
 	</head>
  <body>
  	<div id="div1"></div>
- 		<button onclick="getStuff()"> TEST </button>
+ 		<button onclick="setID()"> TEST </button>
  </body>
 </html>
