@@ -3,7 +3,7 @@
 		<script   src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script type="text/javascript">
 		// var id = "wipaweeeeee";
-		var url = "https://www.instagram.com/" + id + "/media/";
+		var url;
 		var nextURL;
 		var id;
 		var allImage = [];
@@ -13,6 +13,7 @@
 			$.getJSON('/instagram', function(data){
 				console.log(data);
 				id = data;
+				url = "https://www.instagram.com/" + id + "/media/";
 
 				callMethod(url, drawImage);
 			});
