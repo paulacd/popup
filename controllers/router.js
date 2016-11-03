@@ -10,7 +10,7 @@ module.exports = function(app) {
     app.get('/instagram', hitIG);
 };
 
-//----------INSTAGRAM CODE------------------
+//----------INSTAGRAM CODE---------------
 var hitIG = function(request, response) {
 	// make get request to instagram using lastmessage
     //for debugging purposes
@@ -21,7 +21,10 @@ var hitIG = function(request, response) {
     response.json({handle:next}); 
         
 }
-//----------INSTAGRAM CODE------------------
+//----------INSTAGRAM CODE---------------
+
+
+//----------TWILIO CODE------------------
 
 // Create a function to handle Twilio SMS / MMS webhook requests
 var webhook = function(request, response) {
@@ -63,3 +66,5 @@ var webhook = function(request, response) {
         	});
     		}
 }
+
+//----------TWILIO CODE------------------
