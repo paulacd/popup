@@ -40,6 +40,7 @@ app.use(function (request, response, next) {
     response.sendFile(path.join(__dirname, 'public', '404.html'));
 });
 
+
 // Unhandled errors (500)
 app.use(function(err, request, response, next) {
     console.error('An application error has occurred:');
@@ -52,6 +53,7 @@ app.use(function(err, request, response, next) {
 // INDEX.HTML
 app.use(function (request, response, next) {
     // response.status(404);
+    response.status(200);
     response.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 

@@ -1,4 +1,4 @@
-// var lastMessage = "";
+var lastMessage = "";
 var IGline = []; 
 
 // Map routes to controller functions
@@ -8,6 +8,17 @@ module.exports = function(app) {
 
     //send IG handle to IG script
     app.get('/instagram', hitIG);
+
+    app.get('/', function(req,res){
+        res.render()
+    })
+
+    // app.get('/test', function(req,res){
+    //     if (IGline.length > 0){
+    //         res.json({"msg":IGLine[0];});
+
+    //     }
+    // });
 };
 
 //----------INSTAGRAM CODE---------------
@@ -15,10 +26,15 @@ var hitIG = function(request, response) {
 	// make get request to instagram using lastmessage
     //for debugging purposes
 	// response.send("hello")
-    var next = IGline[0];
-    IGline.shift();
-	// send instagram back to wip in response
-    response.json({handle:next}); 
+    console.log('received request for handle');
+    if (IGline > 0) {
+
+        var next = IGline[0];
+        IGline.shift();
+    	// send instagram back to wip in response
+        response.json({ "handle" : next }); 
+
+    }
         
 }
 //----------INSTAGRAM CODE---------------
