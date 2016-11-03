@@ -2,64 +2,65 @@
 	<head>
 		<script   src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script type="text/javascript">
-		var id = "wipaweeeeee";
+		// var id = "wipaweeeeee";
 		var url = "https://www.instagram.com/" + id + "/media/";
 		var nextURL;
+		var id;
 		var allImage = [];
-
-		function grabID() {
-			var getID = app.get('/instagram', hitIG);
-			console.log(getID);
-		}
 
 		function getStuff(){
 			console.log('inside getstuff');
 			$.getJSON('/instagram', function(data){
 				console.log(data);
+				id = data;
+
+				callMethod(url, drawImage);
 			});
 		}
 
 
-		// function callMethod(url, successCallback) {
-		// 	$.ajax({
-		// 		url: url, 
-		// 		success: successCallback,
-		// 		error: function(xhr, textStatus, errorThrown) {
-		// 			console.log('error');
-		// 		}
-		// 	}); 
-		// }
+		function callMethod(url, successCallback) {
+			$.ajax({
+				url: url, 
+				success: successCallback,
+				error: function(xhr, textStatus, errorThrown) {
+					console.log('error');
+				}
+			}); 
+		}
 
 		// callMethod(url, drawImage);
 
-	 //    function drawImage(result) {
+	    function drawImage(result) {
 
-	 //    		var lastURL = result.items.length - 1;
+	    	var lastURL = result.items.length - 1;
 
-		// 		for( var i = 0; i < result.items.length; i++) {
-		// 			var lowRes = result.items[i].images.low_resolution.url;
-		//         	var imgDiv = document.createElement('img')
-		//         	imgDiv.src = lowRes;
-		//         	allImage.push(imgDiv);
+	    	console.log('im drawimg image');
 
-		//         	nextURL = "https://www.instagram.com/" + id + "/media/?max_id=" + result.items[lastURL].id
-		// 		}
+				for( var i = 0; i < result.items.length; i++) {
+					var lowRes = result.items[i].images.low_resolution.url;
+		        	var imgDiv = document.createElement('img')
+		        	imgDiv.src = lowRes;
+		        	allImage.push(imgDiv);
 
-		// 			callMethod(nextURL, drawImage);
+		        	nextURL = "https://www.instagram.com/" + id + "/media/?max_id=" + result.items[lastURL].id
+				}
 
-	 //  		displayImage();
-	 //    }
+					callMethod(nextURL, drawImage);
 
-	 //    function displayImage() {
-	 //    	for(var i = 0; i < allImage.length; i++) {
-	 //    		allImage[i].style.position = "absolute";
-	 //        	allImage[i].style.top = 0;
-	 //        	allImage[i].className = "insta";
-	 //        	// allImage[i].style.width = 640;
-	 //        	// allImage[i].style.height = "auto";
-	 //    		document.getElementById('div1').appendChild(allImage[i]);
-	 //    	}
-	 //    }
+	  		displayImage();
+	    }
+
+	    function displayImage() {
+	    	for(var i = 0; i < allImage.length; i++) {
+	    		allImage[i].style.position = "absolute";
+	        	allImage[i].style.top = 0;
+	        	allImage[i].className = "insta";
+	        	// allImage[i].style.width = 640;
+	        	// allImage[i].style.height = "auto";
+	    		document.getElementById('div1').appendChild(allImage[i]);
+	    	}
+	    }
 
 	
 		</script>	

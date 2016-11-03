@@ -29,7 +29,7 @@ var hitIG = function(request, response) {
     console.log('received request for handle');
 
     console.log('IGline length is: ' + IGline.length);
-    if (IGline > 0) {
+    if (IGline.length > 0) {
 
         var next = IGline[0];
         console.log('next is: ' + next);
